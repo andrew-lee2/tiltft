@@ -1,10 +1,10 @@
-package com.waystar.flight;
+package com.waystar.tiltft;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FlightApplicationTests {
+class TiltftApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.waystar</groupId>
-	<artifactId>flight</artifactId>
+	<artifactId>tiltft</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>flight</name>
+	<name>tiltft</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
