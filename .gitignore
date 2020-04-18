@@ -30,3 +30,6 @@ build/
 .vscode/
 
 application-local.properties
+
+node_modules/
+tiltft-frontend/node_modules/
