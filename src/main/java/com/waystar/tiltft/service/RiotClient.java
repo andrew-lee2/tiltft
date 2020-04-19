@@ -1,4 +1,5 @@
 package com.waystar.tiltft.service;
+import com.waystar.tiltft.service.TftSummonerV1;
 
 import java.util.Arrays;
 
@@ -18,6 +19,8 @@ public class RiotClient
     static String TFT_SUMMONER_URL = "https://na1.api.riotgames.com/tft/summoner/v1/summoners/by-name/%s";
 //    static final String URL_EMPLOYEES = "https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/s5cOG7zcrxL9BWHqedUV65qxt_oyvCGdJ5C1uinMlp356z_y1ztitEl38L0bx7CWEzmtamr23BL2vQ/ids?count=20";
 
+//    FIXME do something with the singleton
+//    FIXME maybe do some kind of automatic api?
     private RiotClient()
     {
 
@@ -38,24 +41,28 @@ public class RiotClient
         return String.format(TFT_SUMMONER_URL, summonerName);
     }
 
-    public static void getTFTSummonerInfo(String summonerName) {
+    public static TftSummonerV1 getTFTSummonerInfo(String summonerName) {
         final String uri = getTftSummonerUrl(summonerName);
 
         // HttpHeaders
         HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON }));
+        headers.setAccept(Arrays.asList(new MediaType[]{MediaType.APPLICATION_JSON}));
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("X-Riot-Token", riotApiKey);
 
         // HttpEntity<String>: To get result as String.
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        HttpEntity<TftSummonerV1> entity = new HttpEntity<TftSummonerV1>(headers);
 
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
+        ResponseEntity<TftSummonerV1> response = restTemplate.exchange(uri, HttpMethod.GET, entity, TftSummonerV1.class);
 
-        String result = response.getBody();
+        TftSummonerV1 result = response.getBody();
 
-        System.out.println(result);
+        if (result != null) {
+            System.out.println(result.toString());
+        }
+
+        return result;
     }
 }
