@@ -1,5 +1,7 @@
 package com.waystar.tiltft;
 import com.waystar.tiltft.service.RiotClient;
+import com.waystar.tiltft.service.TftSummonerMatchIds;
+import com.waystar.tiltft.service.TftSummonerV1;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +25,12 @@ public class TiltftApplication {
 	}
 
 	@GetMapping("/tft-summoner-name")
-	public void getSummonerName(@RequestParam(value = "summonerName") String summonerName) {
-		RiotClient.getTFTSummonerInfo(summonerName);
+	public TftSummonerV1 getSummonerName(@RequestParam(value = "summonerName") String summonerName) {
+		return RiotClient.getTFTSummonerInfo(summonerName);
+	}
+
+	@GetMapping("/tft-summoner-match-ids")
+	public TftSummonerMatchIds getTftSummonerMatchIds(@RequestParam(value = "puuid") String puuid) {
+		return RiotClient.getTftSummonerMatchIds(puuid);
 	}
 }
