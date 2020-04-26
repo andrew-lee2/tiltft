@@ -9,10 +9,12 @@ import java.util.List;
 public class TftMatchStatsInfo {
     @JsonProperty("game_datetime")
     private Long gameDatetime;
-    private Float game_length;
-    private String game_variation;
-    private String game_version;
-    @JsonProperty("participants")
+    @JsonProperty("game_length")
+    private Float gameLength;
+    @JsonProperty("game_variation")
+    private String gameVariation;
+    @JsonProperty("game_version")
+    private String gameVersion;
     private List<PlayerMatchInfo> participants;
 
     public Long getGameDatetime() {
@@ -23,28 +25,28 @@ public class TftMatchStatsInfo {
         this.gameDatetime = gameDatetime;
     }
 
-    public Float getGame_length() {
-        return game_length;
+    public Float getGameLength() {
+        return gameLength;
     }
 
-    public void setGame_length(Float game_length) {
-        this.game_length = game_length;
+    public void setGameLength(Float gameLength) {
+        this.gameLength = gameLength;
     }
 
-    public String getGame_variation() {
-        return game_variation;
+    public String getGameVariation() {
+        return gameVariation;
     }
 
-    public void setGame_variation(String game_variation) {
-        this.game_variation = game_variation;
+    public void setGameVariation(String gameVariation) {
+        this.gameVariation = gameVariation;
     }
 
-    public String getGame_version() {
-        return game_version;
+    public String getGameVersion() {
+        return gameVersion;
     }
 
-    public void setGame_version(String game_version) {
-        this.game_version = game_version;
+    public void setGameVersion(String gameVersion) {
+        this.gameVersion = gameVersion;
     }
 
     public List<PlayerMatchInfo> getParticipants()
@@ -61,28 +63,32 @@ public class TftMatchStatsInfo {
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class PlayerMatchInfo {
-    private Integer gold_left;
-    private Integer last_round;
+    @JsonProperty("gold_left")
+    private Integer goldLeft;
+    @JsonProperty("last_round")
+    private Integer lastRound;
     private Integer level;
     private Integer placement;
-    private Integer players_eliminated;
+    @JsonProperty("players_eliminated")
+    private Integer playersEliminated;
     private String puuid;
-    private Float time_eliminated;
+    @JsonProperty("time_eliminated")
+    private Float timeEliminated;
 
-    public Integer getGold_left() {
-        return gold_left;
+    public Integer getGoldLeft() {
+        return goldLeft;
     }
 
-    public void setGold_left(Integer gold_left) {
-        this.gold_left = gold_left;
+    public void setGoldLeft(Integer goldLeft) {
+        this.goldLeft = goldLeft;
     }
 
-    public Integer getLast_round() {
-        return last_round;
+    public Integer getLastRound() {
+        return lastRound;
     }
 
-    public void setLast_round(Integer last_round) {
-        this.last_round = last_round;
+    public void setLastRound(Integer lastRound) {
+        this.lastRound = lastRound;
     }
 
     public Integer getLevel() {
@@ -101,12 +107,12 @@ class PlayerMatchInfo {
         this.placement = placement;
     }
 
-    public Integer getPlayers_eliminated() {
-        return players_eliminated;
+    public Integer getPlayersEliminated() {
+        return playersEliminated;
     }
 
-    public void setPlayers_eliminated(Integer players_eliminated) {
-        this.players_eliminated = players_eliminated;
+    public void setPlayersEliminated(Integer playersEliminated) {
+        this.playersEliminated = playersEliminated;
     }
 
     public String getPuuid() {
@@ -117,11 +123,11 @@ class PlayerMatchInfo {
         this.puuid = puuid;
     }
 
-    public Float getTime_eliminated() {
-        return time_eliminated;
+    public Float getTimeEliminated() {
+        return timeEliminated;
     }
 
-    public void setTime_eliminated(Float time_eliminated) {
-        this.time_eliminated = time_eliminated;
+    public void setTimeEliminated(Float timeEliminated) {
+        this.timeEliminated = timeEliminated;
     }
 }
