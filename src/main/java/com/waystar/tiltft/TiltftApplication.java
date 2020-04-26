@@ -1,8 +1,5 @@
 package com.waystar.tiltft;
-import com.waystar.tiltft.service.RiotClient;
-import com.waystar.tiltft.service.TftMatchStatsInfo;
-import com.waystar.tiltft.service.TftSummonerMatchIds;
-import com.waystar.tiltft.service.TftSummonerV1;
+import com.waystar.tiltft.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,7 +33,7 @@ public class TiltftApplication {
 	}
 
 	@GetMapping("/tft-match-info")
-	public TftMatchStatsInfo getTftMatchInfo(@RequestParam(value = "matchId") String matchId) {
+	public TftMatchStats getTftMatchInfo(@RequestParam(value = "matchId") String matchId) {
 		return RiotClient.getTftMatchInfo(matchId);
 	}
 }

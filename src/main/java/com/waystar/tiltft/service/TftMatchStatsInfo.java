@@ -1,55 +1,60 @@
 package com.waystar.tiltft.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TftMatchStatsInfo {
-    private Long game_datetime;
+    @JsonProperty("game_datetime")
+    private Long gameDatetime;
     private Float game_length;
     private String game_variation;
     private String game_version;
-    private PlayerMatchInfo[] participants;
+    @JsonProperty("participants")
+    private List<PlayerMatchInfo> participants;
 
     public Long getGameDatetime() {
-        return game_datetime;
+        return gameDatetime;
     }
 
-    public void setGameDatetime(Long game_datetime) {
-        this.game_datetime = game_datetime;
+    public void setGameDatetime(Long gameDatetime) {
+        this.gameDatetime = gameDatetime;
     }
 
-    public Float getGameLength() {
+    public Float getGame_length() {
         return game_length;
     }
 
-    public void setGameLength(Float game_length) {
+    public void setGame_length(Float game_length) {
         this.game_length = game_length;
     }
 
-    public String getGameVariation() {
+    public String getGame_variation() {
         return game_variation;
     }
 
-    public void setGameVariation(String game_variation) {
+    public void setGame_variation(String game_variation) {
         this.game_variation = game_variation;
     }
 
-    public String getGameVersion() {
+    public String getGame_version() {
         return game_version;
     }
 
-    public void setGameVersion(String game_version) {
+    public void setGame_version(String game_version) {
         this.game_version = game_version;
     }
 
-    public PlayerMatchInfo getPlayerMatchInfo(int index)
+    public List<PlayerMatchInfo> getParticipants()
     {
-        return participants[index];
+        return participants;
     }
 
-    public void setPlayerMatchInfo(PlayerMatchInfo newPlayerMatchInfo, int index)
+    public void setParticipants(List<PlayerMatchInfo> participants)
     {
-        participants[index] = newPlayerMatchInfo;
+        this.participants = participants;
     }
 }
 
@@ -64,11 +69,11 @@ class PlayerMatchInfo {
     private String puuid;
     private Float time_eliminated;
 
-    public Integer getGoldLeft() {
+    public Integer getGold_left() {
         return gold_left;
     }
 
-    public void setGoldLeft(Integer gold_left) {
+    public void setGold_left(Integer gold_left) {
         this.gold_left = gold_left;
     }
 
@@ -76,7 +81,7 @@ class PlayerMatchInfo {
         return last_round;
     }
 
-    public void setLastRound(Integer last_round) {
+    public void setLast_round(Integer last_round) {
         this.last_round = last_round;
     }
 
@@ -96,11 +101,11 @@ class PlayerMatchInfo {
         this.placement = placement;
     }
 
-    public Integer getPlayersEliminated() {
+    public Integer getPlayers_eliminated() {
         return players_eliminated;
     }
 
-    public void setPlayersEliminated(Integer players_eliminated) {
+    public void setPlayers_eliminated(Integer players_eliminated) {
         this.players_eliminated = players_eliminated;
     }
 
@@ -112,11 +117,11 @@ class PlayerMatchInfo {
         this.puuid = puuid;
     }
 
-    public Float getTimeEliminated() {
+    public Float getTime_eliminated() {
         return time_eliminated;
     }
 
-    public void setTimeEliminated(Float time_eliminated) {
+    public void setTime_eliminated(Float time_eliminated) {
         this.time_eliminated = time_eliminated;
     }
 }

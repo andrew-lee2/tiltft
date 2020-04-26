@@ -115,16 +115,16 @@ public class RiotClient
         return headers;
     }
 
-    public static TftMatchStatsInfo getTftMatchInfo(String matchId) {
+    public static TftMatchStats getTftMatchInfo(String matchId) {
         final String matchIdUri = getTftMatchInfoUri(matchId);
 
         HttpHeaders headers = getHttpHeaders();
-        HttpEntity<TftMatchStatsInfo> entity = new HttpEntity<TftMatchStatsInfo>(headers);
+        HttpEntity<TftMatchStats> entity = new HttpEntity<TftMatchStats>(headers);
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<TftMatchStatsInfo> response = restTemplate.exchange(matchIdUri, HttpMethod.GET, entity, TftMatchStatsInfo.class);
+        ResponseEntity<TftMatchStats> response = restTemplate.exchange(matchIdUri, HttpMethod.GET, entity, TftMatchStats.class);
 
-        TftMatchStatsInfo result = response.getBody();
+        TftMatchStats result = response.getBody();
 
         if (result != null) {
             System.out.println(result.toString());
