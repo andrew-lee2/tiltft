@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class RiotClient
 {
 //    @Value("${tiltft.riot-api-key}")
-    static String riotApiKey = "RGAPI-2b76d4d6-fbb9-4c32-baf0-f787d3c174ce";
+    static String riotApiKey = "RGAPI-23c452c6-b6db-4bef-adea-6d2a4bff1b4b";
 
     private static HttpHeaders getHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
@@ -45,7 +45,7 @@ public class RiotClient
         return String.format(TFT_SUMMONER_MATCH_URL, puuid, count);
     }
 
-    public static TftSummonerMatchIds getTftSummonerMatchIds(String puuid) {
+    public static String[] getTftSummonerMatchIds(String puuid) {
         final Integer MATCH_COUNT = 10;
         final String matchIdUri = getTftSummonerMatchIdsUri(puuid, MATCH_COUNT);
 
@@ -53,7 +53,7 @@ public class RiotClient
         HttpEntity<TftSummonerMatchIds> entity = new HttpEntity<TftSummonerMatchIds>(headers);
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<TftSummonerMatchIds> response = restTemplate.exchange(matchIdUri, HttpMethod.GET, entity, TftSummonerMatchIds.class);
+        ResponseEntity<String[]> response = restTemplate.exchange(matchIdUri, HttpMethod.GET, entity, String[].class);
 
         return response.getBody();
     }
