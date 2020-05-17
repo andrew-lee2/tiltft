@@ -1,5 +1,7 @@
 package com.waystar.tiltft;
 import com.waystar.tiltft.service.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +29,22 @@ public class TiltftApplication {
 	}
 
 	@GetMapping("/tft-summoner-match-ids")
-	public TftSummonerMatchIds getTftSummonerMatchIds(@RequestParam(value = "puuid") String puuid) {
+	public String[] getTftSummonerMatchIds(@RequestParam(value = "puuid") String puuid) {
 		return RiotClient.getTftSummonerMatchIds(puuid);
 	}
 
 	@GetMapping("/tft-match-info")
 	public TftMatchStats getTftMatchInfo(@RequestParam(value = "matchId") String matchId) {
 		return RiotClient.getTftMatchInfo(matchId);
+	}
+
+//	FIXME
+	@GetMapping("/tft-summoner-rating")
+	public String getTiltftSummonerHistory(@RequestParam(value = "summonerName") String summonerName) throws JSONException {
+		Double rating = TiltftData.getTiltftRating(summonerName);
+		JSONObject jsonString = new JSONObject();
+		jsonString.put("rating", rating);
+
+		return jsonString.toString();
 	}
 }

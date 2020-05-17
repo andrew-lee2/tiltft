@@ -1,17 +1,20 @@
 package com.waystar.tiltft.service;
 
 
+import java.util.Collection;
+import java.util.List;
+
 public class TftSummonerMatchIds {
-    private String[] summonerMatchIds;
+    private String summonerMatchId;
 
     public  TftSummonerMatchIds() {
     }
 
-    public String[] getSummonerMatchIds() {
-        return summonerMatchIds;
+    public String getSummonerMatchIds() {
+        return summonerMatchId;
     }
 
-    public void setSummonerMatchIds(String[] summonerMatchIds) {
-        this.summonerMatchIds = summonerMatchIds;
+    public void setSummonerMatchIds(String summonerMatchId) {
+        this.summonerMatchId = summonerMatchId;
     }
 }
