@@ -77,10 +77,11 @@ function Home() {
     setRegion(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = () => {
     if (region !== '' && summonerName !== '') {
       setLoading(true);
-      fetch(`/api/v1/tft-summoner-rating/?summonerName=${summonerName}`)
+      // TODO set timeout?
+      fetch(`/api/v1/tft-summoner-rating/?summonerName=${summonerName}&region=${region['text']}`)
         .then(res => res.json())
         .then(
           (result) => {
