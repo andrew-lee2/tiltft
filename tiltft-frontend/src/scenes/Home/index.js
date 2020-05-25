@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {WiredButton, WiredItem, WiredCombo, WiredInput, WiredSpinner} from "react-wired-elements";
 import './styles.scss';
 import Container from 'react-bootstrap/Container';
@@ -18,33 +18,56 @@ function LoadingSpinner(props) {
   }
 }
 
+
+function getRatingStr(rating) {
+  // could be between -8 and 8 with -8 being the worst
+  if (rating < -4) {
+    return 'Definitely tilted'
+  } else if (rating < -2) {
+    return 'Might be tilted'
+  } else if (rating < 2) {
+    return 'Probably not tilted!'
+  } else if (rating < 4) {
+    return 'Not tilted!'
+  } else {
+    return 'Definitely not tilted!'
+  }
+}
+
+
+// TODO add for error
 function ResultsDisplay(props) {
-  if (props.isLoaded) {
+  const rating = props.rating;
+  const isLoaded = props.isLoaded;
+  let ratingValue = null;
+
+  if (props.rating) {
+    ratingValue = rating['rating']
+  }
+
+  if (isLoaded && ratingValue) {
     return (
-      // TODO need to make a mapping of rating to text to display
+    <div>
       <div>
-        asdasdasdasdassasd
+        Result:
       </div>
+      <div>
+        {getRatingStr(ratingValue)}
+      </div>
+    </div>
     )
   } else {
     return null;
   }
 }
 
-// TODO call api
-// async function fetchRating() {
-//   await sleep(300);
-// }
-const sleep = (milliseconds) => {
-  return new Promise(resolve => setTimeout(resolve, milliseconds))
-}
-
-
 function Home() {
   const [summonerName, setSummonerName] = useState('');
   const [region, setRegion] = useState('');
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+  const [rating, setRating] = useState(null);
 
   const handleSummonerName = event => {
     setSummonerName(event.target.value);
@@ -57,14 +80,20 @@ function Home() {
   const handleSubmit = event => {
     if (region !== '' && summonerName !== '') {
       setLoading(true);
-      // TODO fire off fetch
-      sleep(3000).then(() => {
-        setLoading(false);
-        // TODO if never loads have some kind of error?
-        setLoaded(true);
-      });
-      // fetchRating();
-
+      fetch(`/api/v1/tft-summoner-rating/?summonerName=${summonerName}`)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            setLoaded(true);
+            setLoading(false);
+            setRating(result);
+          },
+          (error) => {
+            setLoaded(true);
+            setLoading(false);
+            setError(error);
+          }
+        );
     }
   };
 
@@ -143,7 +172,10 @@ function Home() {
         isLoading={loading}
       />
 
-      <ResultsDisplay isLoaded={loaded}/>
+      <ResultsDisplay
+        isLoaded={loaded}
+        rating={rating}
+      />
 
     </Container>
 

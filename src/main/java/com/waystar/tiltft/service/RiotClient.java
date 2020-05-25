@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class RiotClient
 {
 //    @Value("${tiltft.riot-api-key}")
-    static String riotApiKey = "RGAPI-23c452c6-b6db-4bef-adea-6d2a4bff1b4b";
+    static String riotApiKey = "RGAPI-ccab0c27-6786-4c4b-8787-9670ce98da8b";
 
     private static HttpHeaders getHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
