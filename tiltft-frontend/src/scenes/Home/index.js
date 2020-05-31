@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
-import {WiredButton, WiredItem, WiredCombo, WiredInput, WiredSpinner} from "react-wired-elements";
 import './styles.scss';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import RegionSelect from "../../components/RegionSelect";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ResultsDisplay from "../../components/ResultsDisplay";
 
-
+function regionSelect() {
+  const regionNames = ["NA1", "BR1", "EUN1", "EUW1", "JP1", "KR", "LA1", "LA2", "OC1", "RU", "TR1"];
+  return regionNames.map(function (region) {
+    return (
+      <option key={region}>{region}</option>
+    )
+  });
+}
 
 function Home() {
   const [summonerName, setSummonerName] = useState('');
-  const [region, setRegion] = useState('');
+  const [region, setRegion] = useState('NA1');
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
@@ -26,8 +33,12 @@ function Home() {
     setRegion(event.target.value);
   };
 
-  const handleSubmit = () => {
-    if (region !== '' && summonerName !== '') {
+  const handleSubmit = event => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else if (region !== '' && summonerName !== '') {
       setLoading(true);
       fetch(`/api/v1/tft-summoner-rating/?summonerName=${summonerName}&region=${region['text']}`)
         .then(res => res.json())
@@ -44,6 +55,8 @@ function Home() {
           }
         );
     }
+
+    event.preventDefault();
   };
 
   return (
@@ -57,33 +70,35 @@ function Home() {
         <p>
           We take recent TFT games and determine how you are doing
         </p>
-        <Row>
-          {/*// TODO make this wider*/}
-          <Col>
-            <WiredInput
-              className={'summoner-name-bar'}
-              placeholder={"Enter a summoner name"}
-              onChange={handleSummonerName}
-              value={summonerName}>
-            </WiredInput>
+        {/*TODO make this a component*/}
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Summoner Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter a summoner name"
+              required
+              value={summonerName}
+              onChange={handleSummonerName}/>
+          </Form.Group>
 
-          </Col>
-          <Col>
-            <RegionSelect
-              onSelect={handleRegion}
+          <Form.Group controlId="exampleForm.ControlSelect1">
+            <Form.Label>Region</Form.Label>
+            <Form.Control
+              as="select"
+              required
               value={region}
-            />
-          </Col>
-          <Col>
-            <WiredButton
-              onClick={handleSubmit}
+              onChange={handleRegion}
             >
-              Submit
-            </WiredButton>
-          </Col>
-
-        </Row>
+              {regionSelect()}
+            </Form.Control>
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
       </Col>
+
 
       <LoadingSpinner
         isLoading={loading}

@@ -15,8 +15,6 @@ function getRatingStr(rating) {
   }
 }
 
-
-// TODO add for error
 export default function ResultsDisplay(props) {
   const rating = props.rating;
   const isLoaded = props.isLoaded;

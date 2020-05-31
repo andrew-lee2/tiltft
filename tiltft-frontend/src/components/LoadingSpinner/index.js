@@ -1,13 +1,12 @@
-import {WiredSpinner} from "react-wired-elements";
+import Spinner from "react-bootstrap/Spinner";
 import React from "react";
 
 export default function LoadingSpinner(props) {
   if (props.isLoading) {
     return (
-      <WiredSpinner
-        duration={1400}
-        spinning
-      />
+      <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
     );
   } else {
     return null;
