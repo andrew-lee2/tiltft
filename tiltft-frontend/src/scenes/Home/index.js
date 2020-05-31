@@ -4,62 +4,11 @@ import './styles.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-
-function LoadingSpinner(props) {
-  if (props.isLoading) {
-    return (
-        <WiredSpinner
-          duration={1400}
-          spinning
-        />
-      );
-  } else {
-    return null;
-  }
-}
+import RegionSelect from "../../components/RegionSelect";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import ResultsDisplay from "../../components/ResultsDisplay";
 
 
-function getRatingStr(rating) {
-  // could be between -8 and 8 with -8 being the worst
-  if (rating < -4) {
-    return 'Definitely tilted'
-  } else if (rating < -2) {
-    return 'Might be tilted'
-  } else if (rating < 2) {
-    return 'Probably not tilted!'
-  } else if (rating < 4) {
-    return 'Not tilted!'
-  } else {
-    return 'Definitely not tilted!'
-  }
-}
-
-
-// TODO add for error
-function ResultsDisplay(props) {
-  const rating = props.rating;
-  const isLoaded = props.isLoaded;
-  let ratingValue = null;
-
-  if (props.rating) {
-    ratingValue = rating['rating']
-  }
-
-  if (isLoaded && ratingValue) {
-    return (
-    <div>
-      <div>
-        Result:
-      </div>
-      <div>
-        {getRatingStr(ratingValue)}
-      </div>
-    </div>
-    )
-  } else {
-    return null;
-  }
-}
 
 function Home() {
   const [summonerName, setSummonerName] = useState('');
@@ -80,7 +29,6 @@ function Home() {
   const handleSubmit = () => {
     if (region !== '' && summonerName !== '') {
       setLoading(true);
-      // TODO set timeout?
       fetch(`/api/v1/tft-summoner-rating/?summonerName=${summonerName}&region=${region['text']}`)
         .then(res => res.json())
         .then(
@@ -102,61 +50,29 @@ function Home() {
     // TODO center this
     <Container>
       <Col>
+        {/*TODO change copy*/}
         <h2>
           Are you tilted?
         </h2>
+        <p>
+          We take recent TFT games and determine how you are doing
+        </p>
         <Row>
           {/*// TODO make this wider*/}
           <Col>
             <WiredInput
-              placeholder="Enter a summoner name"
+              className={'summoner-name-bar'}
+              placeholder={"Enter a summoner name"}
               onChange={handleSummonerName}
-              value={summonerName}
-            />
+              value={summonerName}>
+            </WiredInput>
 
           </Col>
           <Col>
-            {/*TODO split this out*/}
-            <WiredCombo
-              popupBgColor="white"
-              selectedBgColor="gray"
+            <RegionSelect
               onSelect={handleRegion}
               value={region}
-            >
-              <WiredItem value="NA1">
-                NA1
-              </WiredItem>
-              <WiredItem value="BR1">
-                BR1
-              </WiredItem>
-              <WiredItem value="EUN1">
-                EUN1
-              </WiredItem>
-              <WiredItem value="EUW1">
-                EUW1
-              </WiredItem>
-              <WiredItem value="JP1">
-                JP1
-              </WiredItem>
-              <WiredItem value="KR">
-                KR
-              </WiredItem>
-              <WiredItem value="LA1">
-                LA1
-              </WiredItem>
-              <WiredItem value="LA2">
-                LA2
-              </WiredItem>
-              <WiredItem value="OC1">
-                OC1
-              </WiredItem>
-              <WiredItem value="RU">
-                RU
-              </WiredItem>
-              <WiredItem value="TR1">
-                TR1
-              </WiredItem>
-            </WiredCombo>
+            />
           </Col>
           <Col>
             <WiredButton
@@ -176,10 +92,10 @@ function Home() {
       <ResultsDisplay
         isLoaded={loaded}
         rating={rating}
+        error={error}
       />
 
     </Container>
-
   );
 }
 
