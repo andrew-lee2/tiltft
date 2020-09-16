@@ -18,30 +18,36 @@ public class TiltftApplication {
 		SpringApplication.run(TiltftApplication.class, args);
 	}
 
-	@GetMapping("/hello")
-	public String hello() {
-		return "Hello!!!!!";
-	}
-
 	@GetMapping("/tft-summoner-name")
-	public TftSummonerV1 getSummonerName(@RequestParam(value = "summonerName") String summonerName) {
-		return RiotClient.getTFTSummonerInfo(summonerName);
+	public TftSummonerV1 getSummonerName(
+			@RequestParam(value = "summonerName") String summonerName,
+			@RequestParam(value = "region") String region
+	) {
+		return RiotClient.getTFTSummonerInfo(summonerName, region);
 	}
 
 	@GetMapping("/tft-summoner-match-ids")
-	public String[] getTftSummonerMatchIds(@RequestParam(value = "puuid") String puuid) {
-		return RiotClient.getTftSummonerMatchIds(puuid);
+	public String[] getTftSummonerMatchIds(
+			@RequestParam(value = "puuid") String puuid,
+			@RequestParam(value = "region") String region
+	) {
+		return RiotClient.getTftSummonerMatchIds(puuid, region);
 	}
 
 	@GetMapping("/tft-match-info")
-	public TftMatchStats getTftMatchInfo(@RequestParam(value = "matchId") String matchId) {
-		return RiotClient.getTftMatchInfo(matchId);
+	public TftMatchStats getTftMatchInfo(
+			@RequestParam(value = "matchId") String matchId,
+			@RequestParam(value = "region") String region
+	) {
+		return RiotClient.getTftMatchInfo(matchId, region);
 	}
 
-//	FIXME
 	@GetMapping("/tft-summoner-rating")
-	public String getTiltftSummonerHistory(@RequestParam(value = "summonerName") String summonerName) throws JSONException {
-		Double rating = TiltftData.getTiltftRating(summonerName);
+	public String getTiltftSummonerHistory(
+			@RequestParam(value = "summonerName") String summonerName,
+			@RequestParam(value = "region") String region
+	) throws JSONException {
+		Double rating = TiltftData.getTiltftRating(summonerName, region);
 		JSONObject jsonString = new JSONObject();
 		jsonString.put("rating", rating);
 

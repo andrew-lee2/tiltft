@@ -8,16 +8,16 @@ import java.util.TreeMap;
 
 //TODO make a class for the return type of the data?
 public class TiltftData {
-    public static Map<Long, PlayerMatchInfo> getTiltftSummonerHistory(String summonerName) {
-        TftSummonerV1 summonerData = RiotClient.getTFTSummonerInfo(summonerName);
+    public static Map<Long, PlayerMatchInfo> getTiltftSummonerHistory(String summonerName, String region) {
+        TftSummonerV1 summonerData = RiotClient.getTFTSummonerInfo(summonerName, region);
         String summonerPuuid = summonerData.getPuuid();
 
-        String[] matchIds = RiotClient.getTftSummonerMatchIds(summonerPuuid);
+        String[] matchIds = RiotClient.getTftSummonerMatchIds(summonerPuuid, region);
 
         Map<Long, PlayerMatchInfo> summonerHistory = new HashMap<>();
         for (String matchId : matchIds) {
 
-            TftMatchStats matchStats = RiotClient.getTftMatchInfo(matchId);
+            TftMatchStats matchStats = RiotClient.getTftMatchInfo(matchId, region);
             TftMatchStatsInfo matchStatInfo = matchStats.getInfo();
             List<PlayerMatchInfo> playerMatchInfo = matchStatInfo.getParticipants();
 
@@ -31,8 +31,8 @@ public class TiltftData {
         return summonerHistory;
     }
 
-    public static Double getTiltftRating(String summonerName) {
-        Map<Long, PlayerMatchInfo> summonerHistory = TiltftData.getTiltftSummonerHistory(summonerName);
+    public static Double getTiltftRating(String summonerName, String region) {
+        Map<Long, PlayerMatchInfo> summonerHistory = TiltftData.getTiltftSummonerHistory(summonerName, region);
 
 //        TODO make map with key being date and value being place?
         Map<Long, Integer> summonerFinishes = new TreeMap<>();
@@ -56,7 +56,7 @@ public class TiltftData {
             counter += 1;
         }
 
-//        TODO need to come out with raiting break downs
+//        TODO need to come out with rating break downs
         return TiltftData.calculateRating(initialPlacement, latestPlacement);
     }
     
