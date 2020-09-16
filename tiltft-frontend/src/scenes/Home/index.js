@@ -60,17 +60,14 @@ function Home() {
   };
 
   return (
-    // TODO center this
     <Container>
       <Col>
-        {/*TODO change copy*/}
         <h2>
-          Are you tilted?
+          Analyze your recent match trends!
         </h2>
         <p>
           We take recent TFT games and determine how you are doing
         </p>
-        {/*TODO make this a component*/}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Summoner Name</Form.Label>
