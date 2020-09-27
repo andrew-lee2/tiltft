@@ -3,6 +3,7 @@ package com.waystar.tiltft.service;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,8 +13,8 @@ import org.springframework.web.client.RestTemplate;
 
 public class RiotClient
 {
-//    @Value("${tiltft.riot-api-key}")
-    static String riotApiKey = "RGAPI-ccab0c27-6786-4c4b-8787-9670ce98da8b";
+    @Value("${tiltft.riot-api-key}")
+    static String riotApiKey;
 
     private static String getContinent(String region) {
         String[] americasRegion = {"NA1", "BR1", "LA1", "LA2", "OC1"};
