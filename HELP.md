@@ -20,4 +20,10 @@ The following guides illustrate how to use some features concretely:
 ### Run tests 
 `./mvnw test`
 
+### Riot API Key
+In order for this project to pull data, need to get a [Riot API Key](https://developer.riotgames.com/docs/portal#web-apis_api-keys)
 
+Add environmental vars in `.env`:
+* `RIOT_API_KEY`: riot api key from above
+ 
+ `export $(cat .env | xargs)` to export variables to environment
